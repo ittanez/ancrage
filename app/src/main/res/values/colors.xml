@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Couleurs émotionnelles (ancrages) -->
+    <color name="serenity_primary">#87CEEB</color>
+    <color name="serenity_secondary">#B0E0E6</color>
+
+    <color name="confidence_primary">#FF8C42</color>
+    <color name="confidence_secondary">#FFB347</color>
+
+    <color name="energy_primary">#FFD700</color>
+    <color name="energy_secondary">#FFF44F</color>
+
+    <color name="kindness_primary">#FFB6C1</color>
+    <color name="kindness_secondary">#FFC0CB</color>
+
+    <color name="calm_primary">#9370DB</color>
+    <color name="calm_secondary">#B19CD9</color>
+
+    <!-- Couleurs UI principales (Light Theme) -->
+    <color name="background_light">#FAFAFA</color>
+    <color name="surface_light">#FFFFFF</color>
+    <color name="text_primary_light">#212121</color>
+    <color name="text_secondary_light">#757575</color>
+
+    <!-- Couleurs UI principales (Dark Theme) -->
+    <color name="background_dark">#121212</color>
+    <color name="surface_dark">#1E1E1E</color>
+    <color name="text_primary_dark">#E0E0E0</color>
+    <color name="text_secondary_dark">#B0B0B0</color>
+
+    <!-- Material Design 3 -->
+    <color name="md_theme_light_primary">#9370DB</color>
+    <color name="md_theme_light_onPrimary">#FFFFFF</color>
+    <color name="md_theme_light_secondary">#87CEEB</color>
+    <color name="md_theme_light_onSecondary">#FFFFFF</color>
+
+    <color name="md_theme_dark_primary">#B19CD9</color>
+    <color name="md_theme_dark_onPrimary">#000000</color>
+    <color name="md_theme_dark_secondary">#B0E0E6</color>
+    <color name="md_theme_dark_onSecondary">#000000</color>
+</resources>
