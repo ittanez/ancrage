@@ -21,7 +21,7 @@ import com.novahypnose.ancrage.data.database.entities.Reminder
         Reminder::class
     ],
     version = 1,
-    exportSchema = true
+    exportSchema = false
 )
 abstract class AncrageDatabase : RoomDatabase() {
 

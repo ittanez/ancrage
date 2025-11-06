@@ -58,7 +58,7 @@ fun CreateAnchorScreen(
         ) {
             // Indicateur de progression
             LinearProgressIndicator(
-                progress = { uiState.currentStep / 4f },
+                progress = uiState.currentStep / 4f,
                 modifier = Modifier.fillMaxWidth()
             )
 
