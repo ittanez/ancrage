@@ -21,6 +21,9 @@ class SettingsRepository(private val context: Context) {
         val ANIMATION_INTENSITY = stringPreferencesKey("animation_intensity")
         val VIBRATION_ENABLED = booleanPreferencesKey("vibration_enabled")
         val VIBRATION_INTENSITY = stringPreferencesKey("vibration_intensity")
+        val TTS_ENABLED = booleanPreferencesKey("tts_enabled")
+        val TTS_SPEED = floatPreferencesKey("tts_speed")
+        val TTS_PITCH = floatPreferencesKey("tts_pitch")
         val FIRST_LAUNCH = booleanPreferencesKey("first_launch")
         val NOTIFICATIONS_ENABLED = booleanPreferencesKey("notifications_enabled")
 
@@ -29,6 +32,8 @@ class SettingsRepository(private val context: Context) {
         const val DEFAULT_FONT_SIZE = "medium" // "small", "medium", "large"
         const val DEFAULT_ANIMATION_INTENSITY = "medium" // "low", "medium", "high"
         const val DEFAULT_VIBRATION_INTENSITY = "medium" // "low", "medium", "high"
+        const val DEFAULT_TTS_SPEED = 0.85f // 0.5f to 1.5f
+        const val DEFAULT_TTS_PITCH = 0.9f // 0.7f to 1.3f
     }
 
     private val dataStore = context.dataStore
@@ -84,6 +89,37 @@ class SettingsRepository(private val context: Context) {
     suspend fun setVibrationIntensity(intensity: String) {
         dataStore.edit { preferences ->
             preferences[VIBRATION_INTENSITY] = intensity
+        }
+    }
+
+    // === TTS (Text-to-Speech) ===
+    val ttsEnabled: Flow<Boolean> = dataStore.data.map { preferences ->
+        preferences[TTS_ENABLED] ?: true
+    }
+
+    suspend fun setTTSEnabled(enabled: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[TTS_ENABLED] = enabled
+        }
+    }
+
+    val ttsSpeed: Flow<Float> = dataStore.data.map { preferences ->
+        preferences[TTS_SPEED] ?: DEFAULT_TTS_SPEED
+    }
+
+    suspend fun setTTSSpeed(speed: Float) {
+        dataStore.edit { preferences ->
+            preferences[TTS_SPEED] = speed
+        }
+    }
+
+    val ttsPitch: Flow<Float> = dataStore.data.map { preferences ->
+        preferences[TTS_PITCH] ?: DEFAULT_TTS_PITCH
+    }
+
+    suspend fun setTTSPitch(pitch: Float) {
+        dataStore.edit { preferences ->
+            preferences[TTS_PITCH] = pitch
         }
     }
 

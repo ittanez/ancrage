@@ -9,11 +9,15 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Pause
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.SkipNext
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -23,6 +27,7 @@ import com.novahypnose.ancrage.data.models.EmotionType
 import com.novahypnose.ancrage.ui.components.IntensitySlider
 import com.novahypnose.ancrage.ui.components.PulsingCircle
 import com.novahypnose.ancrage.ui.theme.toColor
+import com.novahypnose.ancrage.utils.TTSHelper
 import kotlinx.coroutines.delay
 
 /**
@@ -193,18 +198,44 @@ private fun EmotionCard(
 private fun GuidedEvocationStep(
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
+    val ttsHelper = remember { TTSHelper(context) }
+
     val guidedTexts = listOf(
         stringResource(R.string.guided_text_1),
         stringResource(R.string.guided_text_2),
-        stringResource(R.string.guided_text_3)
+        stringResource(R.string.guided_text_3),
+        stringResource(R.string.guided_text_4)
     )
 
     var currentTextIndex by remember { mutableIntStateOf(0) }
+    var isSpeaking by remember { mutableStateOf(false) }
+    var ttsInitialized by remember { mutableStateOf(false) }
 
+    // Initialiser TTS
     LaunchedEffect(Unit) {
-        while (currentTextIndex < guidedTexts.size - 1) {
-            delay(4000) // 4 secondes par texte
-            currentTextIndex++
+        ttsInitialized = ttsHelper.initialize()
+    }
+
+    // Jouer les textes en séquence
+    LaunchedEffect(currentTextIndex, ttsInitialized) {
+        if (ttsInitialized && currentTextIndex < guidedTexts.size) {
+            isSpeaking = true
+            ttsHelper.speak(guidedTexts[currentTextIndex])
+            delay(2000) // Pause entre les textes
+            isSpeaking = false
+
+            if (currentTextIndex < guidedTexts.size - 1) {
+                delay(1000)
+                currentTextIndex++
+            }
+        }
+    }
+
+    // Nettoyer à la sortie
+    DisposableEffect(Unit) {
+        onDispose {
+            ttsHelper.shutdown()
         }
     }
 
@@ -215,6 +246,7 @@ private fun GuidedEvocationStep(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+        // Animation pulsante
         PulsingCircle(
             color = MaterialTheme.colorScheme.primary,
             size = 100.dp,
@@ -223,12 +255,58 @@ private fun GuidedEvocationStep(
 
         Spacer(modifier = Modifier.height(48.dp))
 
+        // Texte affiché
         Text(
             text = guidedTexts[currentTextIndex],
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(horizontal = 16.dp)
         )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        // Indicateur de progression
+        LinearProgressIndicator(
+            progress = (currentTextIndex + 1).toFloat() / guidedTexts.size,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 32.dp)
+        )
+
+        Spacer(modifier = Modifier.height(32.dp))
+
+        // Boutons de contrôle
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            // Bouton Skip
+            TextButton(
+                onClick = {
+                    ttsHelper.stop()
+                    currentTextIndex = guidedTexts.size - 1
+                }
+            ) {
+                Icon(Icons.Default.SkipNext, contentDescription = null)
+                Spacer(Modifier.width(4.dp))
+                Text(stringResource(R.string.skip))
+            }
+
+            // Bouton Pause/Reprendre
+            IconButton(
+                onClick = {
+                    if (isSpeaking) {
+                        ttsHelper.stop()
+                        isSpeaking = false
+                    }
+                }
+            ) {
+                Icon(
+                    if (isSpeaking) Icons.Default.Pause else Icons.Default.PlayArrow,
+                    contentDescription = null
+                )
+            }
+        }
     }
 }
 

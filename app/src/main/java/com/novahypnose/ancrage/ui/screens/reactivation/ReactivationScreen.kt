@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -20,6 +21,8 @@ import com.novahypnose.ancrage.ui.components.IntensitySlider
 import com.novahypnose.ancrage.ui.components.PulsingCircle
 import com.novahypnose.ancrage.ui.theme.AnchorKeywordStyle
 import com.novahypnose.ancrage.ui.theme.toColor
+import com.novahypnose.ancrage.utils.TTSHelper
+import kotlinx.coroutines.delay
 
 /**
  * Écran de réactivation d'un ancrage
@@ -31,14 +34,32 @@ fun ReactivationScreen(
     onNavigateBack: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
+    val ttsHelper = remember { TTSHelper(context) }
     val uiState by viewModel.uiState.collectAsState()
     var showPostEvaluation by remember { mutableStateOf(false) }
     var postIntensity by remember { mutableIntStateOf(5) }
 
-    // Gérer la fin de la réactivation
+    // Initialiser TTS et parler au début
+    LaunchedEffect(Unit) {
+        ttsHelper.initialize()
+        delay(1000)
+        ttsHelper.speak(context.getString(R.string.reactivation_intro))
+    }
+
+    // Parler à la fin
     LaunchedEffect(uiState.isFinished) {
         if (uiState.isFinished && !showPostEvaluation) {
+            ttsHelper.speak(context.getString(R.string.reactivation_outro))
+            delay(500)
             showPostEvaluation = true
+        }
+    }
+
+    // Nettoyer TTS
+    DisposableEffect(Unit) {
+        onDispose {
+            ttsHelper.shutdown()
         }
     }
 

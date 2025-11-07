@@ -26,6 +26,7 @@
     <string name="guided_text_1">Fermez un instant les yeux, ou laissez votre regard se poser</string>
     <string name="guided_text_2">Revenez à un moment où vous avez ressenti cette émotion</string>
     <string name="guided_text_3">Laissez votre corps retrouver cette sensation… Doucement</string>
+    <string name="guided_text_4">Lorsque vous êtes prêt, ouvrez les yeux et cliquez sur suivant pour créer votre ancrage</string>
 
     <!-- Ancrage sensoriel -->
     <string name="anchor_type_visual">Visuel</string>
@@ -41,6 +42,8 @@
     <!-- Réactivation -->
     <string name="reactivation_message_1">Ressentez à nouveau cette force qui vous appartient déjà</string>
     <string name="reactivation_message_2">Votre corps se souvient de cet état</string>
+    <string name="reactivation_intro">Prenez une profonde inspiration. Reconnectez-vous à cet état ressource</string>
+    <string name="reactivation_outro">Très bien. Lorsque vous êtes prêt, vous pouvez ouvrir les yeux</string>
     <string name="finish_now">Terminer maintenant</string>
 
     <!-- Cartes d\'ancrage -->
@@ -74,6 +77,10 @@
     <string name="settings_sounds_vibrations">Sons et vibrations</string>
     <string name="settings_enable_vibrations">Activer les vibrations</string>
     <string name="settings_vibration_intensity">Intensité de vibration</string>
+    <string name="settings_voice_guidance">Guidage vocal</string>
+    <string name="settings_enable_tts">Activer le guidage vocal</string>
+    <string name="settings_tts_speed">Vitesse de la voix</string>
+    <string name="settings_tts_pitch">Tonalité de la voix</string>
     <string name="settings_data">Données</string>
     <string name="settings_export">Exporter les données</string>
     <string name="settings_import">Importer les données</string>

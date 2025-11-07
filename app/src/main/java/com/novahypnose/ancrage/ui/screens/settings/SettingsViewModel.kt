@@ -28,6 +28,15 @@ class SettingsViewModel(
     val vibrationIntensity: StateFlow<String> = settingsRepository.vibrationIntensity
         .stateIn(viewModelScope, SharingStarted.Eagerly, SettingsRepository.DEFAULT_VIBRATION_INTENSITY)
 
+    val ttsEnabled: StateFlow<Boolean> = settingsRepository.ttsEnabled
+        .stateIn(viewModelScope, SharingStarted.Eagerly, true)
+
+    val ttsSpeed: StateFlow<Float> = settingsRepository.ttsSpeed
+        .stateIn(viewModelScope, SharingStarted.Eagerly, SettingsRepository.DEFAULT_TTS_SPEED)
+
+    val ttsPitch: StateFlow<Float> = settingsRepository.ttsPitch
+        .stateIn(viewModelScope, SharingStarted.Eagerly, SettingsRepository.DEFAULT_TTS_PITCH)
+
     val notificationsEnabled: StateFlow<Boolean> = settingsRepository.notificationsEnabled
         .stateIn(viewModelScope, SharingStarted.Eagerly, true)
 
@@ -58,6 +67,24 @@ class SettingsViewModel(
     fun setVibrationIntensity(intensity: String) {
         viewModelScope.launch {
             settingsRepository.setVibrationIntensity(intensity)
+        }
+    }
+
+    fun setTTSEnabled(enabled: Boolean) {
+        viewModelScope.launch {
+            settingsRepository.setTTSEnabled(enabled)
+        }
+    }
+
+    fun setTTSSpeed(speed: Float) {
+        viewModelScope.launch {
+            settingsRepository.setTTSSpeed(speed)
+        }
+    }
+
+    fun setTTSPitch(pitch: Float) {
+        viewModelScope.launch {
+            settingsRepository.setTTSPitch(pitch)
         }
     }
 

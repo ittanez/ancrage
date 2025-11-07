@@ -27,6 +27,9 @@ fun SettingsScreen(
     val animationIntensity by viewModel.animationIntensity.collectAsState()
     val vibrationEnabled by viewModel.vibrationEnabled.collectAsState()
     val vibrationIntensity by viewModel.vibrationIntensity.collectAsState()
+    val ttsEnabled by viewModel.ttsEnabled.collectAsState()
+    val ttsSpeed by viewModel.ttsSpeed.collectAsState()
+    val ttsPitch by viewModel.ttsPitch.collectAsState()
     val notificationsEnabled by viewModel.notificationsEnabled.collectAsState()
 
     var showResetDialog by remember { mutableStateOf(false) }
@@ -105,6 +108,37 @@ fun SettingsScreen(
                             "high" to "Forte"
                         ),
                         onValueChange = { viewModel.setVibrationIntensity(it) }
+                    )
+                }
+            }
+
+            Divider(modifier = Modifier.padding(vertical = 8.dp))
+
+            // Guidage vocal (TTS)
+            SettingsSection(title = stringResource(R.string.settings_voice_guidance)) {
+                SettingsSwitch(
+                    label = stringResource(R.string.settings_enable_tts),
+                    checked = ttsEnabled,
+                    onCheckedChange = { viewModel.setTTSEnabled(it) }
+                )
+
+                if (ttsEnabled) {
+                    SettingsSlider(
+                        label = stringResource(R.string.settings_tts_speed),
+                        value = ttsSpeed,
+                        onValueChange = { viewModel.setTTSSpeed(it) },
+                        valueRange = 0.5f..1.5f,
+                        steps = 10,
+                        valueFormatter = { String.format("%.1fx", it) }
+                    )
+
+                    SettingsSlider(
+                        label = stringResource(R.string.settings_tts_pitch),
+                        value = ttsPitch,
+                        onValueChange = { viewModel.setTTSPitch(it) },
+                        valueRange = 0.7f..1.3f,
+                        steps = 6,
+                        valueFormatter = { String.format("%.1f", it) }
                     )
                 }
             }
@@ -273,5 +307,43 @@ private fun SettingsButton(
         }
     ) {
         Text(label)
+    }
+}
+
+@Composable
+private fun SettingsSlider(
+    label: String,
+    value: Float,
+    onValueChange: (Float) -> Unit,
+    valueRange: ClosedFloatingPointRange<Float>,
+    steps: Int = 0,
+    valueFormatter: (Float) -> String = { it.toString() }
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = label,
+                style = MaterialTheme.typography.bodyLarge
+            )
+            Text(
+                text = valueFormatter(value),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.primary
+            )
+        }
+        Slider(
+            value = value,
+            onValueChange = onValueChange,
+            valueRange = valueRange,
+            steps = steps,
+            modifier = Modifier.fillMaxWidth()
+        )
     }
 }
