@@ -148,6 +148,24 @@ private fun ChooseEmotionStep(
             modifier = Modifier.padding(bottom = 24.dp)
         )
 
+        // Description de l'émotion sélectionnée
+        AnimatedVisibility(visible = selectedEmotion != null) {
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer
+                )
+            ) {
+                Text(
+                    text = getEmotionIntroText(selectedEmotion),
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(16.dp)
+                )
+            }
+        }
+
         EmotionType.entries.forEach { emotion ->
             EmotionCard(
                 emotion = emotion,
@@ -158,6 +176,19 @@ private fun ChooseEmotionStep(
                     .padding(vertical = 8.dp)
             )
         }
+    }
+}
+
+@Composable
+private fun getEmotionIntroText(emotion: EmotionType?): String {
+    return when (emotion) {
+        EmotionType.SERENITY -> stringResource(R.string.emotion_intro_serenity)
+        EmotionType.CONFIDENCE -> stringResource(R.string.emotion_intro_confidence)
+        EmotionType.ENERGY -> stringResource(R.string.emotion_intro_energy)
+        EmotionType.KINDNESS -> stringResource(R.string.emotion_intro_kindness)
+        EmotionType.CALM -> stringResource(R.string.emotion_intro_calm)
+        EmotionType.OTHER -> stringResource(R.string.emotion_intro_other)
+        null -> ""
     }
 }
 

@@ -16,6 +16,14 @@
     <string name="emotion_calm">Calme intérieur</string>
     <string name="emotion_other">Autre</string>
 
+    <!-- Descriptions des émotions -->
+    <string name="emotion_intro_serenity">La sérénité est un état de paix intérieure et de tranquillité profonde. C\'est le sentiment d\'être en harmonie avec soi-même et son environnement, où les tensions se dissolvent naturellement.</string>
+    <string name="emotion_intro_confidence">La confiance est cette force intérieure qui vous permet d\'affronter les défis avec assurance. C\'est la certitude de vos capacités et la conviction que vous pouvez surmonter les obstacles.</string>
+    <string name="emotion_intro_energy">L\'énergie est cette vitalité qui vous anime et vous dynamise. C\'est un état d\'enthousiasme, de motivation et de force qui vous pousse à agir avec passion et détermination.</string>
+    <string name="emotion_intro_kindness">La bienveillance est une ouverture du cœur vers soi-même et les autres. C\'est un état de douceur, de compassion et d\'acceptation qui nourrit vos relations et votre bien-être.</string>
+    <string name="emotion_intro_calm">Le calme intérieur est un refuge de paix au centre de vous-même. C\'est un état de stabilité émotionnelle où vous vous sentez ancré, centré et capable de traverser sereinement les tempêtes de la vie.</string>
+    <string name="emotion_intro_other">Choisissez une autre ressource émotionnelle qui vous est personnelle. Ce peut être la joie, le courage, la créativité, ou toute autre qualité que vous souhaitez cultiver et réactiver.</string>
+
     <!-- Création d'ancrage -->
     <string name="step_choose_resource">Choisissez votre ressource</string>
     <string name="step_guided_evocation">Évocation guidée</string>
