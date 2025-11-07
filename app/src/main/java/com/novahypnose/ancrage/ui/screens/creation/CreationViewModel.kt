@@ -45,17 +45,31 @@ class CreationViewModel(
     }
 
     /**
-     * Définit le mot-clé ou la phrase
+     * Définit le mot-clé ou la phrase (OBLIGATOIRE)
      */
     fun setKeywordPhrase(text: String) {
         _uiState.update { it.copy(keywordPhrase = text) }
     }
 
     /**
-     * Active/désactive l'ancrage kinesthésique
+     * Définit la description de l'image mentale (OPTIONNEL)
      */
-    fun setKinestheticGesture(enabled: Boolean) {
-        _uiState.update { it.copy(kinestheticGesture = enabled) }
+    fun setMentalImageDescription(text: String) {
+        _uiState.update { it.copy(mentalImageDescription = text) }
+    }
+
+    /**
+     * Définit la description du geste kinesthésique (OPTIONNEL)
+     */
+    fun setGestureDescription(text: String) {
+        _uiState.update { it.copy(gestureDescription = text) }
+    }
+
+    /**
+     * Définit la description du lieu/situation (OPTIONNEL)
+     */
+    fun setPlaceDescription(text: String) {
+        _uiState.update { it.copy(placeDescription = text) }
     }
 
     /**
@@ -110,7 +124,9 @@ class CreationViewModel(
                     } else null,
                     colorHex = state.colorHex,
                     keywordPhrase = state.keywordPhrase,
-                    kinestheticGesture = state.kinestheticGesture,
+                    mentalImageDescription = state.mentalImageDescription.ifBlank { null },
+                    gestureDescription = state.gestureDescription.ifBlank { null },
+                    placeDescription = state.placeDescription.ifBlank { null },
                     initialIntensity = state.initialIntensity,
                     currentIntensity = state.initialIntensity
                 )
@@ -146,7 +162,9 @@ data class CreationUiState(
     val selectedEmotion: EmotionType? = null,
     val customEmotionName: String = "",
     val colorHex: String = "#9370DB",
-    val keywordPhrase: String = "",
-    val kinestheticGesture: Boolean = false,
+    val keywordPhrase: String = "", // OBLIGATOIRE
+    val mentalImageDescription: String = "", // OPTIONNEL
+    val gestureDescription: String = "", // OPTIONNEL
+    val placeDescription: String = "", // OPTIONNEL
     val initialIntensity: Int = 5
 )

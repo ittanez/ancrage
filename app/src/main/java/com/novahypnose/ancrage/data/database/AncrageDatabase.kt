@@ -20,7 +20,7 @@ import com.novahypnose.ancrage.data.database.entities.Reminder
         Reactivation::class,
         Reminder::class
     ],
-    version = 1,
+    version = 2, // Incremented for new anchor fields
     exportSchema = false
 )
 abstract class AncrageDatabase : RoomDatabase() {

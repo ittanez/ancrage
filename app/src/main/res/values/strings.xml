@@ -35,6 +35,17 @@
     <string name="anchor_explanation">Ce geste, cette couleur ou ce mot devient le rappel naturel de cet état</string>
     <string name="anchor_reminder">Chaque fois que vous le verrez ou le referez, votre corps se souviendra</string>
 
+    <!-- Champs d'ancrage améliorés -->
+    <string name="anchor_keyword_label">Mot-clé ou phrase (obligatoire)</string>
+    <string name="anchor_keyword_hint">Ex: Je suis calme et serein</string>
+    <string name="anchor_mental_image_label">Image mentale</string>
+    <string name="anchor_mental_image_hint">Décrivez l\'image que vous visualisez</string>
+    <string name="anchor_gesture_label">Geste kinesthésique</string>
+    <string name="anchor_gesture_hint">Décrivez le geste (ex: main sur le cœur, respiration profonde)</string>
+    <string name="anchor_place_label">Lieu ou situation</string>
+    <string name="anchor_place_hint">Décrivez le lieu ou la situation associée</string>
+    <string name="anchor_optional_fields">Champs optionnels (cocher pour activer)</string>
+
     <!-- Évaluation -->
     <string name="evaluation_question">À quel point ressentez-vous cet état maintenant ?</string>
     <string name="evaluation_post_question">Comment vous sentez-vous maintenant ?</string>

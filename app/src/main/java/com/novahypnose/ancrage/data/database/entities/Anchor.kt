@@ -25,13 +25,19 @@ data class Anchor(
     val colorHex: String, // Format #RRGGBB
 
     @ColumnInfo(name = "keyword_phrase")
-    val keywordPhrase: String? = null, // Max 50 caractères
+    val keywordPhrase: String? = null, // OBLIGATOIRE - Max 50 caractères
+
+    @ColumnInfo(name = "mental_image_description")
+    val mentalImageDescription: String? = null, // OPTIONNEL - Description de l'image mentale
 
     @ColumnInfo(name = "image_path")
-    val imagePath: String? = null, // Chemin vers image personnalisée
+    val imagePath: String? = null, // OPTIONNEL - Chemin vers image personnalisée (Phase 2)
 
-    @ColumnInfo(name = "kinesthetic_gesture")
-    val kinestheticGesture: Boolean = false,
+    @ColumnInfo(name = "gesture_description")
+    val gestureDescription: String? = null, // OPTIONNEL - Description du geste kinesthésique
+
+    @ColumnInfo(name = "place_description")
+    val placeDescription: String? = null, // OPTIONNEL - Description du lieu/situation
 
     // Métadonnées
     @ColumnInfo(name = "created_at")

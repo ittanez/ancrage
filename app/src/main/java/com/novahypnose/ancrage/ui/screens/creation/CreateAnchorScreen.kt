@@ -82,8 +82,12 @@ fun CreateAnchorScreen(
                     3 -> CreateAnchorStep(
                         keywordPhrase = uiState.keywordPhrase,
                         onKeywordChange = { viewModel.setKeywordPhrase(it) },
-                        kinestheticGesture = uiState.kinestheticGesture,
-                        onKinestheticChange = { viewModel.setKinestheticGesture(it) },
+                        mentalImageDescription = uiState.mentalImageDescription,
+                        onMentalImageChange = { viewModel.setMentalImageDescription(it) },
+                        gestureDescription = uiState.gestureDescription,
+                        onGestureChange = { viewModel.setGestureDescription(it) },
+                        placeDescription = uiState.placeDescription,
+                        onPlaceChange = { viewModel.setPlaceDescription(it) },
                         color = uiState.colorHex
                     )
                     4 -> EvaluationStep(
@@ -314,11 +318,19 @@ private fun GuidedEvocationStep(
 private fun CreateAnchorStep(
     keywordPhrase: String,
     onKeywordChange: (String) -> Unit,
-    kinestheticGesture: Boolean,
-    onKinestheticChange: (Boolean) -> Unit,
+    mentalImageDescription: String,
+    onMentalImageChange: (String) -> Unit,
+    gestureDescription: String,
+    onGestureChange: (String) -> Unit,
+    placeDescription: String,
+    onPlaceChange: (String) -> Unit,
     color: String,
     modifier: Modifier = Modifier
 ) {
+    var showMentalImage by remember { mutableStateOf(false) }
+    var showGesture by remember { mutableStateOf(false) }
+    var showPlace by remember { mutableStateOf(false) }
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -328,20 +340,39 @@ private fun CreateAnchorStep(
         Text(
             text = stringResource(R.string.step_create_anchor),
             style = MaterialTheme.typography.headlineSmall,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+
+        Text(
+            text = stringResource(R.string.anchor_explanation),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(bottom = 24.dp)
         )
 
+        // Mot-clé (OBLIGATOIRE)
         OutlinedTextField(
             value = keywordPhrase,
             onValueChange = onKeywordChange,
-            label = { Text("Mot-clé ou phrase") },
-            placeholder = { Text("Ex: Je suis calme et serein") },
+            label = { Text(stringResource(R.string.anchor_keyword_label)) },
+            placeholder = { Text(stringResource(R.string.anchor_keyword_hint)) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 16.dp),
-            maxLines = 2
+            maxLines = 2,
+            supportingText = { Text("Ce champ est obligatoire") }
         )
 
+        Divider(modifier = Modifier.padding(vertical = 16.dp))
+
+        // Section champs optionnels
+        Text(
+            text = stringResource(R.string.anchor_optional_fields),
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
+
+        // Image mentale (OPTIONNEL)
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -349,21 +380,99 @@ private fun CreateAnchorStep(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Checkbox(
-                checked = kinestheticGesture,
-                onCheckedChange = onKinestheticChange
+                checked = showMentalImage,
+                onCheckedChange = {
+                    showMentalImage = it
+                    if (!it) onMentalImageChange("")
+                }
             )
             Text(
-                text = "Ajouter un geste kinesthésique",
+                text = stringResource(R.string.anchor_mental_image_label),
                 modifier = Modifier.padding(start = 8.dp)
             )
         }
 
-        Text(
-            text = stringResource(R.string.anchor_explanation),
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(top = 16.dp)
-        )
+        AnimatedVisibility(visible = showMentalImage) {
+            OutlinedTextField(
+                value = mentalImageDescription,
+                onValueChange = onMentalImageChange,
+                label = { Text(stringResource(R.string.anchor_mental_image_label)) },
+                placeholder = { Text(stringResource(R.string.anchor_mental_image_hint)) },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp),
+                maxLines = 3,
+                minLines = 2
+            )
+        }
+
+        // Geste kinesthésique (OPTIONNEL)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Checkbox(
+                checked = showGesture,
+                onCheckedChange = {
+                    showGesture = it
+                    if (!it) onGestureChange("")
+                }
+            )
+            Text(
+                text = stringResource(R.string.anchor_gesture_label),
+                modifier = Modifier.padding(start = 8.dp)
+            )
+        }
+
+        AnimatedVisibility(visible = showGesture) {
+            OutlinedTextField(
+                value = gestureDescription,
+                onValueChange = onGestureChange,
+                label = { Text(stringResource(R.string.anchor_gesture_label)) },
+                placeholder = { Text(stringResource(R.string.anchor_gesture_hint)) },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp),
+                maxLines = 3,
+                minLines = 2
+            )
+        }
+
+        // Lieu/Situation (OPTIONNEL)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Checkbox(
+                checked = showPlace,
+                onCheckedChange = {
+                    showPlace = it
+                    if (!it) onPlaceChange("")
+                }
+            )
+            Text(
+                text = stringResource(R.string.anchor_place_label),
+                modifier = Modifier.padding(start = 8.dp)
+            )
+        }
+
+        AnimatedVisibility(visible = showPlace) {
+            OutlinedTextField(
+                value = placeDescription,
+                onValueChange = onPlaceChange,
+                label = { Text(stringResource(R.string.anchor_place_label)) },
+                placeholder = { Text(stringResource(R.string.anchor_place_hint)) },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp),
+                maxLines = 3,
+                minLines = 2
+            )
+        }
     }
 }
 
