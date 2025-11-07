@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
+import com.novahypnose.ancrage.data.database.AncrageDatabase
 import com.novahypnose.ancrage.data.repository.SettingsRepository
 import com.novahypnose.ancrage.navigation.AppNavigation
 import com.novahypnose.ancrage.ui.theme.AncrAgeTheme
@@ -44,6 +45,15 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
 
         super.onCreate(savedInstanceState)
+
+        // FORCE : Nettoyer la base de données corrompue au premier lancement
+        val prefs = getSharedPreferences("app_prefs", MODE_PRIVATE)
+        val dbVersion = prefs.getInt("db_version", 0)
+        if (dbVersion < 3) {
+            // Forcer la suppression de la base de données corrompue
+            AncrageDatabase.clearDatabase(this)
+            prefs.edit().putInt("db_version", 3).apply()
+        }
 
         settingsRepository = SettingsRepository(this)
 
