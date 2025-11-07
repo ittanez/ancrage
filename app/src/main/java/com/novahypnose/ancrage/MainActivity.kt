@@ -14,6 +14,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
 import com.novahypnose.ancrage.data.repository.SettingsRepository
 import com.novahypnose.ancrage.navigation.AppNavigation
@@ -39,6 +40,9 @@ class MainActivity : ComponentActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Installer le splash screen AVANT super.onCreate()
+        installSplashScreen()
+
         super.onCreate(savedInstanceState)
 
         settingsRepository = SettingsRepository(this)

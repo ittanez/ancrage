@@ -16,6 +16,9 @@
     <color name="calm_primary">#9370DB</color>
     <color name="calm_secondary">#B19CD9</color>
 
+    <!-- Splash Screen -->
+    <color name="splash_purple">#9370DB</color>
+
     <!-- Couleurs UI principales (Light Theme) -->
     <color name="background_light">#FAFAFA</color>
     <color name="surface_light">#FFFFFF</color>
