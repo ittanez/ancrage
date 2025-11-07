@@ -20,7 +20,7 @@ import com.novahypnose.ancrage.data.database.entities.Reminder
         Reactivation::class,
         Reminder::class
     ],
-    version = 2, // Incremented for new anchor fields
+    version = 3, // Incremented to fix database corruption issue
     exportSchema = false
 )
 abstract class AncrageDatabase : RoomDatabase() {
@@ -42,11 +42,23 @@ abstract class AncrageDatabase : RoomDatabase() {
                     AncrageDatabase::class.java,
                     DATABASE_NAME
                 )
-                    .fallbackToDestructiveMigration() // Pour le développement
+                    .fallbackToDestructiveMigration() // Supprime et recrée la DB en cas de problème
+                    .fallbackToDestructiveMigrationOnDowngrade() // Gère aussi les downgrades
                     .build()
 
                 INSTANCE = instance
                 instance
+            }
+        }
+
+        /**
+         * Force la suppression de la base de données (utile en cas de corruption)
+         */
+        fun clearDatabase(context: Context) {
+            synchronized(this) {
+                INSTANCE?.close()
+                INSTANCE = null
+                context.deleteDatabase(DATABASE_NAME)
             }
         }
     }
