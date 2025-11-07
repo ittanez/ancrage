@@ -28,6 +28,7 @@ fun HomeScreen(
     onCreateAnchor: () -> Unit,
     onAnchorClick: (Long) -> Unit,
     onSettingsClick: () -> Unit,
+    onFAQClick: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -77,6 +78,7 @@ fun HomeScreen(
                 uiState.anchors.isEmpty() -> {
                     EmptyState(
                         onCreateAnchor = onCreateAnchor,
+                        onFAQClick = onFAQClick,
                         modifier = Modifier.align(Alignment.Center)
                     )
                 }
@@ -88,6 +90,7 @@ fun HomeScreen(
                         onAnchorLongClick = { anchor ->
                             // TODO: Show options menu
                         },
+                        onFAQClick = onFAQClick,
                         modifier = Modifier.fillMaxSize()
                     )
                 }
@@ -99,6 +102,7 @@ fun HomeScreen(
 @Composable
 private fun EmptyState(
     onCreateAnchor: () -> Unit,
+    onFAQClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -118,8 +122,16 @@ private fun EmptyState(
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(bottom = 32.dp)
+            modifier = Modifier.padding(bottom = 16.dp)
         )
+
+        // Bouton FAQ
+        TextButton(
+            onClick = onFAQClick,
+            modifier = Modifier.padding(bottom = 16.dp)
+        ) {
+            Text(stringResource(R.string.faq_title))
+        }
 
         Button(
             onClick = onCreateAnchor,
@@ -140,6 +152,7 @@ private fun AnchorList(
     anchors: List<Anchor>,
     onAnchorClick: (Long) -> Unit,
     onAnchorLongClick: (Anchor) -> Unit,
+    onFAQClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
@@ -162,8 +175,15 @@ private fun AnchorList(
                 Text(
                     text = stringResource(R.string.home_subtitle),
                     style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(bottom = 8.dp)
                 )
+                TextButton(
+                    onClick = onFAQClick,
+                    modifier = Modifier.padding(start = -8.dp)
+                ) {
+                    Text(stringResource(R.string.faq_title))
+                }
             }
         }
 

@@ -14,6 +14,7 @@ import com.novahypnose.ancrage.data.repository.AnchorRepository
 import com.novahypnose.ancrage.data.repository.SettingsRepository
 import com.novahypnose.ancrage.ui.screens.creation.CreateAnchorScreen
 import com.novahypnose.ancrage.ui.screens.creation.CreationViewModel
+import com.novahypnose.ancrage.ui.screens.faq.FAQScreen
 import com.novahypnose.ancrage.ui.screens.home.HomeScreen
 import com.novahypnose.ancrage.ui.screens.home.HomeViewModel
 import com.novahypnose.ancrage.ui.screens.reactivation.ReactivationScreen
@@ -31,6 +32,7 @@ sealed class Screen(val route: String) {
         fun createRoute(anchorId: Long) = "reactivation/$anchorId"
     }
     object Settings : Screen("settings")
+    object FAQ : Screen("faq")
 }
 
 /**
@@ -72,6 +74,9 @@ fun AppNavigation(
                 },
                 onSettingsClick = {
                     navController.navigate(Screen.Settings.route)
+                },
+                onFAQClick = {
+                    navController.navigate(Screen.FAQ.route)
                 }
             )
         }
@@ -120,6 +125,13 @@ fun AppNavigation(
 
             SettingsScreen(
                 viewModel = viewModel,
+                onNavigateBack = { navController.popBackStack() }
+            )
+        }
+
+        // Écran FAQ
+        composable(Screen.FAQ.route) {
+            FAQScreen(
                 onNavigateBack = { navController.popBackStack() }
             )
         }

@@ -97,6 +97,34 @@
     <string name="settings_import">Importer les données</string>
     <string name="settings_reset">Réinitialiser</string>
 
+    <!-- FAQ -->
+    <string name="faq_title">Qu\'est-ce qu\'un ancrage ?</string>
+    <string name="faq_intro_title">L\'ancrage en PNL (Programmation Neuro-Linguistique)</string>
+    <string name="faq_intro_text">Un ancrage est une technique de PNL qui vous permet de créer un lien entre un stimulus sensoriel (un mot, un geste, une image) et un état émotionnel positif. C\'est comme créer un raccourci vers vos ressources intérieures.</string>
+
+    <string name="faq_q1">Qu\'est-ce qu\'un ancrage exactement ?</string>
+    <string name="faq_a1">Un ancrage est une association entre un stimulus externe (visuel, auditif, kinesthésique) et un état interne (émotion, sensation, ressource). Quand vous activez ce stimulus, votre corps et votre esprit retrouvent automatiquement l\'état associé. C\'est comme une touche de raccourci émotionnelle.</string>
+
+    <string name="faq_q2">Comment fonctionne un ancrage ?</string>
+    <string name="faq_a2">L\'ancrage fonctionne par association neurologique. Lorsque vous vivez intensément une émotion positive et que vous y associez un stimulus spécifique (un mot, un geste), votre cerveau crée un lien. Plus vous renforcez ce lien, plus il devient automatique et efficace.</string>
+
+    <string name="faq_q3">Pourquoi créer des ancrages ?</string>
+    <string name="faq_a3">Les ancrages vous permettent d\'accéder rapidement à vos ressources intérieures quand vous en avez besoin : retrouver votre calme avant une présentation, renforcer votre confiance dans un moment difficile, ou simplement vous connecter à un état de bien-être quand vous le souhaitez.</string>
+
+    <string name="faq_q4">Combien de temps faut-il pour créer un ancrage ?</string>
+    <string name="faq_a4">Un ancrage peut se créer en quelques minutes seulement. L\'important n\'est pas la durée mais l\'intensité de l\'émotion au moment de la création. Plus vous êtes pleinement dans l\'état émotionnel désiré, plus l\'ancrage sera puissant. Ensuite, il se renforce à chaque utilisation.</string>
+
+    <string name="faq_q5">À quelle fréquence dois-je utiliser mes ancrages ?</string>
+    <string name="faq_a5">Utilisez vos ancrages dès que vous en ressentez le besoin. Plus vous les activez régulièrement, plus ils se renforcent. Certaines personnes les utilisent quotidiennement comme une routine de bien-être, d\'autres les gardent pour des moments spécifiques. Il n\'y a pas de règle absolue.</string>
+
+    <string name="faq_q6">Un ancrage peut-il perdre de son efficacité ?</string>
+    <string name="faq_a6">Comme tout apprentissage, un ancrage doit être entretenu. Si vous ne l\'utilisez jamais, il peut s\'affaiblir. À l\'inverse, chaque utilisation le renforce. Si un ancrage s\'affaiblit, vous pouvez simplement le réactiver en revivant intensément l\'émotion associée.</string>
+
+    <string name="faq_q7">Puis-je créer plusieurs ancrages ?</string>
+    <string name="faq_a7">Absolument ! Vous pouvez créer autant d\'ancrages que vous le souhaitez, chacun associé à une ressource différente (calme, confiance, énergie, etc.). L\'application AncrAge vous permet de les gérer tous au même endroit et de choisir celui dont vous avez besoin à chaque moment.</string>
+
+    <string name="faq_disclaimer">Les ancrages sont des outils de développement personnel issus de la PNL. Ils complètent mais ne remplacent pas un accompagnement professionnel si nécessaire.</string>
+
     <!-- Disclaimer -->
     <string name="disclaimer">AncrAge est un outil de bien-être personnel. Il ne remplace pas un suivi médical ou psychologique professionnel. En cas de détresse ou troubles psychologiques, consultez un professionnel de santé.</string>
 
